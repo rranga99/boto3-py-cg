@@ -91,8 +91,16 @@ def create_snapshots(project):
 
     for i in instances:
         for v in i.volumes.all():
+            i.stop()
+            i.wait_until_stopped()
             print("Creating snapshot of {0}".format(v.id))
             v.create_snapshot(Description="Created by Kundu")
+        print("Starting {0}".format(i.id))
+
+        i.start()
+        i.wait_until_running()
+    
+    print("All done!")
 
     return
 
