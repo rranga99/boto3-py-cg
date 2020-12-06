@@ -13,9 +13,14 @@ Kundu uses the configuration created by AWS CLI. e.g.
 
 #Running
 
-`pipenv run python ec2/kundu.py <command> <--project=PROJECT>`
+`pipenv run python ec2/kundu.py <command> <sub-command>
+<--project=PROJECT>`
 
-*command* is list, start, stop
+*command* is instances, volumes or snapshots
+*subcommand* depends on command
+        is list, start, stop or snapshot for instances
+        is list for volumes
+        is list for snapshots
 *project* is optional
     
 
