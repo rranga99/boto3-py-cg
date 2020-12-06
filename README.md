@@ -9,11 +9,13 @@ This project is use boto3 to manage AWS EC2 instance snapshots.
 
 Kundu uses the configuration created by AWS CLI. e.g.
 
-'aws configure --profile cguru'
+`aws configure --profile cguru`
 
 #Running
 
-pipenv run python ec2/kundu.py
+`pipenv run python ec2/kundu.py <command> <--project=PROJECT>`
 
+*command* is list, start, stop
+*project* is optional
     
 
