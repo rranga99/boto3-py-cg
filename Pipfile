@@ -10,6 +10,7 @@ setuptools = "*"
 [packages]
 boto3 = "*"
 click = "*"
+pytz = "*"
 
 [requires]
 python_version = "3.8"
