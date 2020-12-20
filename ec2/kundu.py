@@ -14,7 +14,6 @@ def filter_instances(project):
 
     if project:
         filters = [{'Name': 'tag:Project', 'Values': [project]}]
-        print(filters)
         instances = ec2.instances.filter(Filters=filters)
     else:
         instances = ec2.instances.all()
@@ -37,15 +36,17 @@ def has_older_snapshot(volume, age):
 @ click.group()
 @ click.option('--profile', default='cguru',
                help="AWS profile to be used for working with EC2 instances")
-def cli(profile):
+@ click.option('--region', default=None,
+               help="AWS region to be used for working with EC2 instances")
+def cli(profile, region):
     """kundu manages EC2 snapshots"""
     try:
-        session = boto3.Session(profile_name=profile)
+        session = boto3.Session(profile_name=profile, region_name=region)
     except botocore.exceptions.ProfileNotFound as e:
         print("Unable to use profile {0}. ".format(profile) + str(e) + ".")
         exit(1)
     else:
-        ec2 = session.resource('ec2')
+        ec2 = session.resource('ec2', region_name=region)
 
 
 @ cli.group('volumes')
@@ -60,6 +61,7 @@ def volumes():
                help="Only for a specific instance (Instance ID)")
 def list_volumes(project, instance):
     "List EC2 volumes"
+
 
     print("Instance provided is {0}". format(instance))
     instances = filter_instances(project)
